@@ -1,56 +1,61 @@
-import {
-  Link as ChakraLink,
-  Text,
-  Code,
-  List,
-  ListIcon,
-  ListItem,
-} from '@chakra-ui/react'
-import { CheckCircleIcon, LinkIcon } from '@chakra-ui/icons'
+import { FormControl, FormLabel } from "@chakra-ui/form-control";
+import { Grid, GridItem } from "@chakra-ui/layout";
+import { useReducer } from "react";
+import CartSummary from "../components/CartSummary";
+import CleaningForm from "../components/CleaningForm";
 
-import { Hero } from '../components/Hero'
-import { Container } from '../components/Container'
-import { Main } from '../components/Main'
-import { DarkModeSwitch } from '../components/DarkModeSwitch'
-import { CTA } from '../components/CTA'
-import { Footer } from '../components/Footer'
+import { Container } from "../components/Container";
 
-const Index = () => (
-  <Container height="100vh">
-    <Hero />
-    <Main>
-      <Text>
-        Example repository of <Code>Next.js</Code> + <Code>chakra-ui</Code> +{' '}
-        <Code>typescript</Code>.
-      </Text>
+const initialValues = {
+  bathrooms: 1,
+  bedrooms: 1,
+  cleaningType: "Standard",
+};
 
-      <List spacing={3} my={0}>
-        <ListItem>
-          <ListIcon as={CheckCircleIcon} color="green.500" />
-          <ChakraLink
-            isExternal
-            href="https://chakra-ui.com"
-            flexGrow={1}
-            mr={2}
-          >
-            Chakra UI <LinkIcon />
-          </ChakraLink>
-        </ListItem>
-        <ListItem>
-          <ListIcon as={CheckCircleIcon} color="green.500" />
-          <ChakraLink isExternal href="https://nextjs.org" flexGrow={1} mr={2}>
-            Next.js <LinkIcon />
-          </ChakraLink>
-        </ListItem>
-      </List>
-    </Main>
+// reducer function to update number of bathrooms, bedrooms, and cleaning type
+function cartReducer(
+  state = initialValues,
+  action: { type: string; payload: string | number }
+) {
+  switch (action.type) {
+    case "bathrooms":
+      return {
+        ...state,
+        bathrooms: action.payload,
+      };
+    case "bedrooms":
+      return {
+        ...state,
+        bedrooms: action.payload,
+      };
+    case "cleaningType":
+      return {
+        ...state,
+        cleaningType: action.payload,
+      };
+    default:
+      return state;
+  }
+}
 
-    <DarkModeSwitch />
-    <Footer>
-      <Text>Next ❤️ Chakra</Text>
-    </Footer>
-    <CTA />
-  </Container>
-)
+const Index = () => {
+  const [state, dispatch] = useReducer(cartReducer, initialValues);
 
-export default Index
+  return (
+    <div>
+      <Container minHeight="100vh" px="24">
+        {/* Form to collect number of bathrooms, bedrooms, and cleaning type */}
+        <Grid templateColumns={{ base: "1fr", md: "3fr 1fr" }} gap="16">
+          <GridItem span={8}>
+            <CleaningForm {...state} dispatch={dispatch} />
+          </GridItem>
+          <GridItem span={4}>
+            <CartSummary {...state} />
+          </GridItem>
+        </Grid>
+      </Container>
+    </div>
+  );
+};
+
+export default Index;
