@@ -1,8 +1,13 @@
 import { Box, Divider, Heading, Stack, Text } from "@chakra-ui/layout";
 import { calculateTotalPrice } from "../utils/calculateTotalPrice";
 
-function CartSummary({ bedrooms, bathrooms, cleaningType }) {
-  const totalPrice = calculateTotalPrice(bedrooms, bathrooms, cleaningType);
+function CartSummary({ bedrooms, bathrooms, cleaningType, interval }) {
+  const { discount, subTotal, total } = calculateTotalPrice(
+    bedrooms,
+    bathrooms,
+    cleaningType,
+    interval
+  );
 
   return (
     <div>
@@ -30,10 +35,23 @@ function CartSummary({ bedrooms, bathrooms, cleaningType }) {
           <Text>Cleaning Type</Text>
           <Text fontWeight="medium">{cleaningType}</Text>
         </Box>
+        <Box display="flex" justifyContent="space-between">
+          <Text>Interval</Text>
+          <Text fontWeight="medium">{interval}</Text>
+        </Box>
+        <Divider borderColor="gray.400" />
+        <Box display="flex" justifyContent="space-between">
+          <Text>Sub-Total</Text>
+          <Text fontWeight="medium">${subTotal}</Text>
+        </Box>
+        <Box display="flex" justifyContent="space-between">
+          <Text>Discount</Text>
+          <Text fontWeight="medium">-${discount}</Text>
+        </Box>
         <Divider borderColor="gray.400" />
         <Box display="flex" justifyContent="space-between">
           <Text>Total</Text>
-          <Text fontWeight="medium">${totalPrice}</Text>
+          <Text fontWeight="medium">${total}</Text>
         </Box>
       </Stack>
     </div>

@@ -10,6 +10,7 @@ const initialValues = {
   bathrooms: 1,
   bedrooms: 1,
   cleaningType: "Standard",
+  interval: "One Time",
 };
 
 // reducer function to update number of bathrooms, bedrooms, and cleaning type
@@ -33,6 +34,11 @@ function cartReducer(
         ...state,
         cleaningType: action.payload,
       };
+    case "interval":
+      return {
+        ...state,
+        interval: action.payload,
+      };
     default:
       return state;
   }
@@ -45,7 +51,7 @@ const Index = () => {
     <div>
       <Container minHeight="100vh" px="24">
         {/* Form to collect number of bathrooms, bedrooms, and cleaning type */}
-        <Grid templateColumns={{ base: "1fr", md: "3fr 1fr" }} gap="16">
+        <Grid templateColumns={{ base: "1fr", md: "2fr 1fr" }} gap="16">
           <GridItem span={8}>
             <CleaningForm {...state} dispatch={dispatch} />
           </GridItem>
