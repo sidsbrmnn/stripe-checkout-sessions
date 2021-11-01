@@ -1,4 +1,3 @@
-import { FormControl, FormLabel } from "@chakra-ui/form-control";
 import { Grid, GridItem } from "@chakra-ui/layout";
 import { useReducer } from "react";
 import CartSummary from "../components/CartSummary";
@@ -7,12 +6,12 @@ import CleaningForm from "../components/CleaningForm";
 import { Container } from "../components/Container";
 
 const initialValues = {
-  bathrooms: 1,
-  bedrooms: 1,
+  bathrooms: "1",
+  bedrooms: "1",
   cleaningType: "Standard",
+  interval: "One Time",
 };
 
-// reducer function to update number of bathrooms, bedrooms, and cleaning type
 function cartReducer(
   state = initialValues,
   action: { type: string; payload: string | number }
@@ -33,6 +32,11 @@ function cartReducer(
         ...state,
         cleaningType: action.payload,
       };
+    case "interval":
+      return {
+        ...state,
+        interval: action.payload,
+      };
     default:
       return state;
   }
@@ -44,8 +48,7 @@ const Index = () => {
   return (
     <div>
       <Container minHeight="100vh" px="24">
-        {/* Form to collect number of bathrooms, bedrooms, and cleaning type */}
-        <Grid templateColumns={{ base: "1fr", md: "3fr 1fr" }} gap="16">
+        <Grid templateColumns={{ base: "1fr", md: "2fr 1fr" }} gap="16">
           <GridItem span={8}>
             <CleaningForm {...state} dispatch={dispatch} />
           </GridItem>
