@@ -1,5 +1,5 @@
 import { FormControl, FormLabel } from "@chakra-ui/form-control";
-import { Box, SimpleGrid, Heading, Text, Stack } from "@chakra-ui/layout";
+import { Box, Heading, Text, Stack } from "@chakra-ui/layout";
 import {
   NumberDecrementStepper,
   NumberIncrementStepper,
@@ -17,6 +17,15 @@ function CleaningForm({
   bathrooms,
   bedrooms,
   interval,
+}: {
+  dispatch: React.Dispatch<{
+    type: string;
+    payload: string | number;
+  }>;
+  cleaningType: string | number;
+  bathrooms: string | number;
+  bedrooms: string | number;
+  interval: string | number;
 }) {
   function handleSelectChange(event: ChangeEvent<HTMLSelectElement>) {
     const { name, value } = event.target as HTMLSelectElement;
