@@ -29,13 +29,13 @@ const products = [
 ];
 
 handler.post(async (req, res) => {
-  const amount = formatAmountForStripe(
-    calculateTotalPrice(
-      req.body.bedrooms,
-      req.body.bathrooms,
-      req.body.cleaningType
-    )
+  const { total } = calculateTotalPrice(
+    req.body.bedrooms,
+    req.body.bathrooms,
+    req.body.cleaningType,
+    req.body.interval
   );
+  const amount = formatAmountForStripe(total);
 
   if (req.body.cleaningInterval === "One Time") {
     const paymentIntent = await stripe.paymentIntents.create({
