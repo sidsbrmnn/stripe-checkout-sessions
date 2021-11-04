@@ -50,7 +50,7 @@ function CleaningForm({
           </Text>
         </Stack>
       </Box>
-      <form method="post">
+      <form action="checkout">
         <FormControl defaultValue={bedrooms} id="bedrooms">
           <FormLabel htmlFor="bedrooms">Bedrooms</FormLabel>
           <NumberInput
