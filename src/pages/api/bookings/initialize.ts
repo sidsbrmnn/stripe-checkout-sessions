@@ -40,7 +40,7 @@ handler.post(async (req, res) => {
   if (req.body.cleaningInterval === "One Time") {
     const paymentIntent = await stripe.paymentIntents.create({
       amount,
-      currency: "usd",
+      currency: "inr",
       payment_method_types: ["card"],
       customer: "cus_KVfi2rxCMiKJ4v",
     });
@@ -52,7 +52,7 @@ handler.post(async (req, res) => {
       items: [
         {
           price_data: {
-            currency: "usd",
+            currency: "inr",
             product: products[req.body.interval].id,
             unit_amount: amount,
             recurring: getRecurringPrice(req.body.interval),

@@ -20,18 +20,18 @@ export const getRecurringPrice = (
 };
 
 export function formatAmountForDisplay(amount: number): string {
-  let numberFormat = new Intl.NumberFormat(["en-US"], {
+  let numberFormat = new Intl.NumberFormat(["en-IN"], {
     style: "currency",
-    currency: "USD",
+    currency: "INR",
     currencyDisplay: "symbol",
   });
   return numberFormat.format(amount);
 }
 
 export function formatAmountForStripe(amount: number): number {
-  let numberFormat = new Intl.NumberFormat(["en-US"], {
+  let numberFormat = new Intl.NumberFormat(["en-IN"], {
     style: "currency",
-    currency: "USD",
+    currency: "INR",
     currencyDisplay: "symbol",
   });
   const parts = numberFormat.formatToParts(amount);
